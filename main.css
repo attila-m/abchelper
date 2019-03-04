@@ -1,0 +1,33 @@
+body {
+    background-color: #52be80;
+    color: white;
+    margin: 0 15% 0 15%;
+}
+
+h1 {
+    font-size: 55px;
+    text-align: center;
+}
+
+span {
+    font-size: 180px;
+    font-family: 'Arial';
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    padding: 1% 5% 1% 5%;
+    background: white;
+}
+
+.letters {
+	padding:100px 25% 0 25%;
+}
+
+
+#letterOne {
+	float: left;
+}
+
+#letterTwo {
+	float: right;
+}
