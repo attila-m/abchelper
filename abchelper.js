@@ -22,17 +22,38 @@ function sendLetters() {
     return [a, b];
 }
 
+function accessAnswer(userLetter, otherLetter) {
+    return getPositionInAbcArray(userLetter) > getPositionInAbcArray(otherLetter) ;
+}
+
+function getPositionInAbcArray(letterOne, letterTwo) {
+
+}
+
 $(document).ready(function() {
     var sentArray = sendLetters();
 
     $('#letterOne').text(sentArray[0]);
     $('#letterTwo').text(sentArray[1]);
 
+    function userCorrect() {
+
+        $('#letterOne').on('click', function() {
+            return accessAnswer($('#letterOne').html(), $('#letterTwo').html());
+        })
+
+        $('#letterTwo').on('click', function() {
+            return accessAnswer($('#letterTwo').html(), $('#letterOne').html());
+        })
+
+        retur false;
+    }
+
     $('#letterOne').on('click', function() {
-        console.log($('#letterOne').html());
+        accessAnswer($('#letterOne').html(), $('#letterTwo').html());
     })
     $('#letterTwo').on('click', function() {
-        console.log($('#letterTwo').html());
+        accessAnswer($('#letterTwo').html(), $('#letterOne').html());
     })
 
 });
