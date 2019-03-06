@@ -22,15 +22,32 @@ function sendLetters() {
     return [a, b];
 }
 
-function accessAnswer(userLetter, otherLetter) {
+function assessAnswer(userLetter, otherLetter) {
     return getPositionInAbcArray(userLetter) > getPositionInAbcArray(otherLetter) ;
 }
 
-function getPositionInAbcArray(letterOne, letterTwo) {
-
+function getPositionInAbcArray(letter) {
+    return abcArray.indexOf(letter);
 }
 
+/*
+
+testLetterPosition();
+testLetterPosition();
+
+function testLetterPosition(){
+    var myLetterArray = sendLetters();
+    console.log(myLetterArray[0] + ' is ' + getPositionInAbcArray(myLetterArray[0]));
+    console.log(myLetterArray[1] + ' is ' + getPositionInAbcArray(myLetterArray[1]));
+}
+
+*/
+
 $(document).ready(function() {
+
+    testLetterPosition();
+    testLetterPosition();
+
     var sentArray = sendLetters();
 
     $('#letterOne').text(sentArray[0]);
@@ -39,21 +56,21 @@ $(document).ready(function() {
     function userCorrect() {
 
         $('#letterOne').on('click', function() {
-            return accessAnswer($('#letterOne').html(), $('#letterTwo').html());
+            return assessAnswer($('#letterOne').html(), $('#letterTwo').html());
         })
 
         $('#letterTwo').on('click', function() {
-            return accessAnswer($('#letterTwo').html(), $('#letterOne').html());
+            return assessAnswer($('#letterTwo').html(), $('#letterOne').html());
         })
 
-        retur false;
+        return false;
     }
 
     $('#letterOne').on('click', function() {
-        accessAnswer($('#letterOne').html(), $('#letterTwo').html());
+        assessAnswer($('#letterOne').html(), $('#letterTwo').html());
     })
     $('#letterTwo').on('click', function() {
-        accessAnswer($('#letterTwo').html(), $('#letterOne').html());
+        assessAnswer($('#letterTwo').html(), $('#letterOne').html());
     })
 
 });
