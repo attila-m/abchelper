@@ -7,9 +7,9 @@ var abcArray = [
 
 function getRandomLetter() {
     return abcArray[Math.floor(Math.random() * abcArray.length)];
-}
+};
 
-function sendLetters() {
+function getExerciseLetters() {
     var a = new String("");
     var b = new String("");
 
@@ -20,15 +20,15 @@ function sendLetters() {
     while (a === b);
 
     return [a, b];
-}
+};
 
 function assessAnswer(userLetter, otherLetter) {
-    return getPositionInAbcArray(userLetter) > getPositionInAbcArray(otherLetter) ;
-}
+    return getPositionInAbcArray(userLetter) > getPositionInAbcArray(otherLetter);
+};
 
 function getPositionInAbcArray(letter) {
     return abcArray.indexOf(letter);
-}
+};
 
 /*
 
@@ -39,38 +39,38 @@ function testLetterPosition(){
     var myLetterArray = sendLetters();
     console.log(myLetterArray[0] + ' is ' + getPositionInAbcArray(myLetterArray[0]));
     console.log(myLetterArray[1] + ' is ' + getPositionInAbcArray(myLetterArray[1]));
-}
+};
 
 */
 
 $(document).ready(function() {
 
-    testLetterPosition();
-    testLetterPosition();
+    fillLetters();
 
-    var sentArray = sendLetters();
+    function fillLetters() {
 
-    $('#letterOne').text(sentArray[0]);
-    $('#letterTwo').text(sentArray[1]);
+        var sentArray = getExerciseLetters();
 
-    function userCorrect() {
+        $('#letterOne').text(sentArray[0]);
+        $('#letterTwo').text(sentArray[1]);
+    };
 
-        $('#letterOne').on('click', function() {
-            return assessAnswer($('#letterOne').html(), $('#letterTwo').html());
-        })
-
-        $('#letterTwo').on('click', function() {
-            return assessAnswer($('#letterTwo').html(), $('#letterOne').html());
-        })
-
-        return false;
-    }
+    var answerIs = new Boolean();
 
     $('#letterOne').on('click', function() {
-        assessAnswer($('#letterOne').html(), $('#letterTwo').html());
-    })
+        answerIs = assessAnswer($('#letterOne').html(), $('#letterTwo').html());
+        // LOG
+        console.log('User has clicked letter ' + $('#letterOne').html().toUpperCase());
+        console.log(answerIs);
+        fillLetters();
+    });
+
     $('#letterTwo').on('click', function() {
-        assessAnswer($('#letterTwo').html(), $('#letterOne').html());
-    })
+        answerIs = assessAnswer($('#letterTwo').html(), $('#letterOne').html());
+        // LOG
+        console.log('User has clicked letter ' + $('#letterTwo').html().toUpperCase());
+        console.log(answerIs);
+        fillLetters();
+    });
 
 });
