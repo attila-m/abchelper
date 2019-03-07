@@ -45,7 +45,8 @@ function testLetterPosition(){
 
 $(document).ready(function() {
 
-   var correctCounter = 0;
+    var correctCounter = 0;
+    var resultMessage = "";
 
     fillLetters();
 
@@ -63,14 +64,25 @@ $(document).ready(function() {
         $('#counter').html(correctCounter + '/10');
     }
 
+    writeResultMessage();
+
+    function writeResultMessage() {
+        $('#resultMessage').html('The answer is ' + resultMessage)
+    }
     var answerIs = new Boolean();
+
+    // The code duplication is getting out of hand here
 
     $('#letterOne').on('click', function() {
         answerIs = assessAnswer($('#letterOne').html(), $('#letterTwo').html());
         if (answerIs) {
+            if(correctCounter > 10) {
+                correctCounter = 0;
+            }
             correctCounter++;
             writeCorrectCounter();
         }
+
         // LOG
         console.log('User has clicked letter ' + $('#letterOne').html().toUpperCase());
         console.log(answerIs);
@@ -82,7 +94,11 @@ $(document).ready(function() {
         if (answerIs) {
             correctCounter++;
             writeCorrectCounter();
+            if(correctCounter > 9) {
+                correctCounter = 0;
+            }
         }
+
         // LOG
         console.log('User has clicked letter ' + $('#letterTwo').html().toUpperCase());
         console.log(answerIs);
