@@ -45,6 +45,8 @@ function testLetterPosition(){
 
 $(document).ready(function() {
 
+   var correctCounter = 0;
+
     fillLetters();
 
     function fillLetters() {
@@ -55,10 +57,20 @@ $(document).ready(function() {
         $('#letterTwo').text(sentArray[1]);
     };
 
+    writeCorrectCounter();
+
+    function writeCorrectCounter() {
+        $('#counter').html(correctCounter + '/10');
+    }
+
     var answerIs = new Boolean();
 
     $('#letterOne').on('click', function() {
         answerIs = assessAnswer($('#letterOne').html(), $('#letterTwo').html());
+        if (answerIs) {
+            correctCounter++;
+            writeCorrectCounter();
+        }
         // LOG
         console.log('User has clicked letter ' + $('#letterOne').html().toUpperCase());
         console.log(answerIs);
@@ -67,6 +79,10 @@ $(document).ready(function() {
 
     $('#letterTwo').on('click', function() {
         answerIs = assessAnswer($('#letterTwo').html(), $('#letterOne').html());
+        if (answerIs) {
+            correctCounter++;
+            writeCorrectCounter();
+        }
         // LOG
         console.log('User has clicked letter ' + $('#letterTwo').html().toUpperCase());
         console.log(answerIs);

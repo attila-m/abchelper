@@ -16,13 +16,18 @@ span {
     color: black;
     text-align: center;
     padding: 1% 5% 1% 5%;
-    background: white;
+    background-color: white;
 }
 
 .letters {
 	padding:100px 25% 0 25%;
 }
 
+.counter {
+    font-size: 50px;
+    background-color: black;
+    color: white;
+}
 
 #letterOne {
 	float: left;
