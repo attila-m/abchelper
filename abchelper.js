@@ -6,8 +6,8 @@ var abcArray = [
 ];
 
 function getRandomLetter() {
-    return abcArray[Math.floor(Math.random() * abcArray.length)];
-};
+    return abcArray[Math.floor(Math.random() * abcArray.length)]
+}
 
 function getExerciseLetters() {
     var a = new String("");
@@ -19,90 +19,76 @@ function getExerciseLetters() {
     }
     while (a === b);
 
-    return [a, b];
-};
+    return [a, b]
+}
 
 function assessAnswer(userLetter, otherLetter) {
     return getPositionInAbcArray(userLetter) > getPositionInAbcArray(otherLetter);
-};
+}
 
 function getPositionInAbcArray(letter) {
-    return abcArray.indexOf(letter);
-};
-
-/*
-
-testLetterPosition();
-testLetterPosition();
-
-function testLetterPosition(){
-    var myLetterArray = sendLetters();
-    console.log(myLetterArray[0] + ' is ' + getPositionInAbcArray(myLetterArray[0]));
-    console.log(myLetterArray[1] + ' is ' + getPositionInAbcArray(myLetterArray[1]));
-};
-
-*/
+    return abcArray.indexOf(letter)
+}
 
 $(document).ready(function() {
 
     var correctCounter = 0;
-    var resultMessage = "";
+    var exerciseArray = [];
 
     fillLetters();
+    writeCorrectCounter();
 
     function fillLetters() {
+        exerciseArray = getExerciseLetters();
 
-        var sentArray = getExerciseLetters();
-
-        $('#letterOne').text(sentArray[0]);
-        $('#letterTwo').text(sentArray[1]);
-    };
-
-    writeCorrectCounter();
+        $('#letterOne').text(exerciseArray[0]);
+        $('#letterTwo').text(exerciseArray[1]);
+    }
 
     function writeCorrectCounter() {
         $('#counter').html(correctCounter + '/10');
     }
 
-    writeResultMessage();
-
-    function writeResultMessage() {
-        $('#resultMessage').html('The answer is ' + resultMessage)
-    }
     var answerIs = new Boolean();
+    var pickedLetter = "";
+    var notPickedLetter = "";
+    var letterOne = $('#letterOne');
+    var letterTwo = $('#letterTwo');
 
-    // The code duplication is getting out of hand here
+    // TODO: fix bug here, the div tag shouldn't react
+    $('#letters').on('click', function() {
 
-    $('#letterOne').on('click', function() {
-        answerIs = assessAnswer($('#letterOne').html(), $('#letterTwo').html());
+        letterOne.on('click', function() {
+            pickedLetter = letterOne.html();
+            notPickedLetter = letterTwo.html();
+        })
+
+        letterTwo.on('click', function() {
+            pickedLetter = letterTwo.html();
+            notPickedLetter = letterOne.html();
+        })
+
+        answerIs = assessAnswer(pickedLetter, notPickedLetter);
+
         if (answerIs) {
-            if(correctCounter > 10) {
-                correctCounter = 0;
-            }
             correctCounter++;
             writeCorrectCounter();
-        }
-
-        // LOG
-        console.log('User has clicked letter ' + $('#letterOne').html().toUpperCase());
-        console.log(answerIs);
-        fillLetters();
-    });
-
-    $('#letterTwo').on('click', function() {
-        answerIs = assessAnswer($('#letterTwo').html(), $('#letterOne').html());
-        if (answerIs) {
-            correctCounter++;
-            writeCorrectCounter();
-            if(correctCounter > 9) {
-                correctCounter = 0;
+            if (correctCounter > 9) {
+                correctCounter = 0
             }
         }
 
-        // LOG
-        console.log('User has clicked letter ' + $('#letterTwo').html().toUpperCase());
-        console.log(answerIs);
         fillLetters();
-    });
 
-});
+        // LOG
+        console.log('User has clicked letter ' + pickedLetter.toUpperCase() + ' and the answer is ' + answerIs);
+
+        // var resultMessage = "";
+        // writeResultMessage();
+        // function writeResultMessage() {
+        //     $('#resultMessage').html('The answer is ' + resultMessage)
+        // }
+
+    })
+
+})
